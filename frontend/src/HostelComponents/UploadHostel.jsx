@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import FileBase64 from "react-file-base64";
 import { HiPhotograph, HiX } from "react-icons/hi";
 import Return from "./Return";
+import { addHostel } from "@/request/request";
 
 function UploadHostel() {
   const [files, setFiles] = useState([]);
