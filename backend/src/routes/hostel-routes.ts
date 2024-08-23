@@ -11,6 +11,8 @@ router.post("/", validateAuth ,(req: Request, res: Response)=> hostelController.
 
 router.get("/:id", (req: Request, res: Response)=> hostelController.getOne(req, res))
 
+router.get("/by-user/:userId", (req: Request, res: Response)=> hostelController.getHostelsByUser(req, res))
+
 router.get("/", (req: Request, res: Response)=> hostelController.getAll(req, res))
 
 router.patch("/:id", validateAuth ,(req: Request, res: Response)=> hostelController.update(req, res))

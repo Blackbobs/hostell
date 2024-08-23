@@ -46,6 +46,11 @@ class HostelRepository{
         let result = await this.model.find({popular: true})
         return result;
     }
+
+    async getByUser(userId: string){
+        let result = await this.model.find({createdBy: userId})
+        return result;
+    }
     
 }
 

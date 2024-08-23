@@ -30,6 +30,18 @@ class HostelController{
         }
     }
 
+    async getHostelsByUser(request: Request, response: Response){
+        try{
+            let {userId} = request.params;
+            let result : IResult = await this.service.getHostelByUser(userId)
+            success(result, response)
+        }
+        catch(err : any){
+            let result = {message: err.message, status: err.status, payload:null}
+            error(result, response)
+        }
+    }
+
     async create(request: Request, response: Response){
         try{
             let body = request.body;

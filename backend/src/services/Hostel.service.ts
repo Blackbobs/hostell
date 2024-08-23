@@ -26,6 +26,15 @@ class HostelService{
         }
     }
 
+    async getHostelByUser(id: string){
+        let result = await this.repository.getByUser(id);
+        return {
+            payload: result,
+            message: "Succesful",
+            status: 200
+        }
+    }
+
     async createHostel(data: any){
         if(data.images){
             data.images = await uploaderListOfMedia(data.images)
