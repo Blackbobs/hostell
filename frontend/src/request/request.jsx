@@ -16,7 +16,7 @@ const getToken = () => {
 
 export const axiosConfig = axios.create({
   // baseURL: "https://hostell.onrender.com",
-  baseURL: "http://localhost:5555",
+  baseURL: "https://hostell.onrender.com",
   headers: {
     Authorization: `Bearer ${getToken()}`
   }
