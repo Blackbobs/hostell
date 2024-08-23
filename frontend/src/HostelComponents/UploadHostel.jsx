@@ -5,6 +5,7 @@ import { HiPhotograph, HiX } from "react-icons/hi";
 import Return from "./Return";
 import { addHostel } from "@/request/request";
 import Loader from "@/BasicComponents/Loader";
+import { useRouter } from "next/navigation";
 
 function UploadHostel() {
   const [files, setFiles] = useState([]);
@@ -18,6 +19,8 @@ function UploadHostel() {
   const [availableRooms, setAvailableRooms] = useState("");
   const [showLoader, setShowLoader] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useRouter()
 
   const handleToggleAvailable = () => {
     setAvailable((prev) => !prev);
