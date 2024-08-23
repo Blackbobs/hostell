@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useGetUser } from "@/store/user";
-import { useGetAllHostels } from "@/store/hostels";
+import { useGetAllHostels, useGetHostelsByUser } from "@/store/hostels";
 // import { MdEdit } from "react-icons/md";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -22,7 +22,7 @@ const UserProfile = () => {
   const { user } = useGetUser(userId);
   // console.log(user)
 
-  const { allHostels } = useGetAllHostels();
+  const { allHostels } = useGetHostelsByUser(userId);
   const [hostels, setHostels] = useState();
   const [dateJoined, setDateJoined] = useState();
 
@@ -36,7 +36,7 @@ const UserProfile = () => {
     setHostels(allHostels);
   }, [allHostels]);
   return (
-    <section className="w-screen">
+    <section className="w-full">
       <CustomReturn />
       <div className="max-w-screen-lg mx-auto">
         <div className="flex flex-col items-center gap-5 m-5">

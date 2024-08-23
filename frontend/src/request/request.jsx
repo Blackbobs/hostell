@@ -16,7 +16,7 @@ const getToken = () => {
 
 export const axiosConfig = axios.create({
   // baseURL: "https://hostell.onrender.com",
-  baseURL: "http://localhost:5555",
+  baseURL: "https://hostell.onrender.com",
   headers: {
     Authorization: `Bearer ${getToken()}`
   }
@@ -84,6 +84,11 @@ export const forgotPassword = async (email) => {
 }
 export const recommendedHostel = async () => {
   const response = await axiosConfig.get("/hostels/type/recommended");
+  return response.data;
+};
+
+export const getHostelsByUser = async (id) => {
+  const response = await axiosConfig.get(`/hostels/by-user/${id}`);
   return response.data;
 };
 

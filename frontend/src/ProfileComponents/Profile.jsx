@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { RiCalendar2Line, RiMailLine } from "react-icons/ri";
 import { useGetUser } from "@/store/user";
+import { useGetHostelsByUser } from "@/store/hostels";
+import HostelCard from "@/HostelComponents/HostelCard";
 
 
 function Profile() {
@@ -13,14 +15,19 @@ function Profile() {
   const router = useRouter();
   const [user, setUser] = useState()
 
+  const { allHostels } = useGetHostelsByUser(user?._id);
+  const [hostels, setHostels] = useState();
 
   useEffect(()=>{
     setUser(JSON.parse(localStorage.getItem("user")));
   }, [])
   
+  useEffect(() => {
+    setHostels(allHostels);
+  }, [allHostels]);
 
   return (
-    <section className="w-screen">
+    <section className="w-full">
       <div className="max-w-screen-lg mx-auto">
         <div className="flex flex-col items-center gap-5 m-5">
           <div className="w-36 h-36 rounded-full bg-secondary1 flex items-center justify-center overflow-hidden">
@@ -65,7 +72,18 @@ function Profile() {
       <div className="mx-xPadding my-10">
         <p className="text-[20px] font-[600]">Uploaded Hostels</p>
 
-
+        {hostels?.length > 0
+          ? hostels.map((hostel, i) => (
+              <HostelCard
+                key={i}
+                price={hostel.price}
+                hostelid={hostel._id}
+                location={hostel.location}
+                title={hostel.title}
+                image={hostel.images.length > 0 ? hostel.images[0] : ""}
+              />
+            ))
+          : "No hostels available"}
       </div>
     </section>
   );

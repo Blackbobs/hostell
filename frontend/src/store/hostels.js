@@ -6,3 +6,11 @@ export const useGetAllHostels = ()=>{
 
     return {allHostels: data, isLoading, isError}
 }
+
+export const useGetHostelsByUser = (id)=>{
+    const {data, isLoading, isError} = useSWR(`/hostels/by-user/${id}`, fetcher);
+
+    return {allHostels: data, isLoading, isError}
+}
+
+
