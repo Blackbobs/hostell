@@ -4,6 +4,7 @@ import FileBase64 from "react-file-base64";
 import { HiPhotograph, HiX } from "react-icons/hi";
 import Return from "./Return";
 import { addHostel } from "@/request/request";
+import Loader from "@/BasicComponents/Loader";
 
 function UploadHostel() {
   const [files, setFiles] = useState([]);

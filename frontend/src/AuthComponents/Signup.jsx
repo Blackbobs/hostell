@@ -44,7 +44,7 @@ function Signup() {
         setTimeout(() => {
           setShowLoader(false);
         }, 5000);
-        router.replace("/");
+        router.replace("/login");
       } else {
         setShowLoader(false);
         setErrorMessage(userData.message);

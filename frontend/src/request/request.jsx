@@ -6,10 +6,19 @@ import axios from "axios";
 //   const token = result.payload.token
 //   // console.log(token)
 
+const getToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("token");
+  }
+  return null; // or handle this case as needed
+};
+
+
 export const axiosConfig = axios.create({
-  baseURL: "https://hostell.onrender.com",
+  // baseURL: "https://hostell.onrender.com",
+  baseURL: "http://localhost:5555",
   headers: {
-    // Authorization: `Bearer ${localStorage.getItem("token")}`
+    Authorization: `Bearer ${getToken()}`
   }
 });
 
@@ -84,12 +93,7 @@ export const hostelDetails = async (hostelid) => {
 };
 
 export const popularHostel = async () => {
-  const result = JSON.parse(localStorage.getItem("user"));
-  // console.log(result)
-  const token = result.payload.token;
-  const response = await axiosConfig.get("/hostels/type/popular", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axiosConfig.get("/hostels/type/popular");
   return response.data;
 };
 
@@ -103,10 +107,7 @@ export const addHostel = async (
   available,
   availableRooms
 ) => {
-  const result = JSON.parse(localStorage.getItem("user"));
-  // console.log(result)
-  const token = result.payload.token;
-  // console.log(token)
+  
   const response = await axiosConfig.post(
     "/hostels/",
     {
@@ -118,8 +119,7 @@ export const addHostel = async (
       features,
       available,
       availableRooms,
-    },
-    { headers: { Authorization: `Bearer ${token}` } }
+    }
   );
   return response;
 };
