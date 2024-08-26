@@ -5,7 +5,7 @@ import { FiPlus } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { RiCalendar2Line, RiMailLine } from "react-icons/ri";
-import { useGetUser } from "@/store/user";
+// import { useGetUser } from "@/store/user";
 import { useGetHostelsByUser } from "@/store/hostels";
 import HostelCard from "@/HostelComponents/HostelCard";
 

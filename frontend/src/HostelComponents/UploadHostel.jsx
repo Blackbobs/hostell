@@ -154,7 +154,7 @@ function UploadHostel() {
             {/* <label className="capitalize font-bold m-2">Price</label> */}
             <input
               className="outline-none p-2 border-2 border-gray-400 m-2 rounded"
-              type="text"
+              type="number"
               placeholder="Price"
               onChange={(e) => setPrice(e.target.value)}
             />

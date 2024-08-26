@@ -16,18 +16,11 @@ const Recommended = ({ simplified }) => {
 
   const { allHostels, isLoading } = useGetAllHostels();
   // console.log(allHostels)
-
   useEffect(() => {
     const fetchData = async () => {
       // setIsLoading(true);
       try {
-        // const result = await allHostels
-        // const hostelResult = await result.payload;
         const hostelResult = await allHostels;
-        // console.log(allHostels)
-        // console.log(hostelResult)
-        // const sortedHostelArray = await hostelResult.reverse();
-        // console.log(hostelArray)
         setHostelArray(hostelResult);
         // setIsLoading(false);
       } catch (error) {
@@ -44,36 +37,37 @@ const Recommended = ({ simplified }) => {
   }, [searchInput, hostelArray, priceFilter]);
 
   const filterHostels = () => {
-    let filterHostels = hostelArray;
+    let tempFilteredHostels = hostelArray;
+
     const searchTerm = searchInput.trim().toLowerCase();
 
-    if (searchTerm === "" || priceFilter == []) {
-      setFilteredHostels(hostelArray);
-      return;
-    }
-    // Filter hostels based on location
-    filterHostels = filterHostels.filter(
-      (hostel) =>
-        hostel.location.toLowerCase().includes(searchTerm) ||
-        hostel.title.toLowerCase().includes(searchTerm)
-    );
-
-    for (const priceRange in priceFilter) {
-      if (priceFilter[priceRange]) {
-        filterHostels = filterHostels.filter((hostel) =>
-          isPriceInRange(hostel.price, priceRange)
-        );
-      }
+    // Filter hostels based on search term
+    if (searchTerm) {
+      tempFilteredHostels = tempFilteredHostels.filter(
+        (hostel) =>
+          hostel.location.toLowerCase().includes(searchTerm) ||
+          hostel.title.toLowerCase().includes(searchTerm)
+      );
     }
 
-    setFilteredHostels(filterHostels);
+    // Filter hostels based on price range
+    if (Object.keys(priceFilter).length > 0) {
+      tempFilteredHostels = tempFilteredHostels.filter((hostel) => {
+        return Object.keys(priceFilter).some((priceRange) => {
+          if (priceFilter[priceRange]) {
+            return isPriceInRange(hostel.price, priceRange);
+          }
+          return false;
+        });
+      });
+    }
+
+    setFilteredHostels(tempFilteredHostels);
   };
 
   // Function to check if a price is within a given range
   const isPriceInRange = (price, range) => {
-    const [min, max] = range
-      .split(" - ")
-      .map((value) => parseInt(value.replace(/\D/g, "")));
+    const [min, max] = range.split('-').map(value => parseInt(value.trim(), 10));
     return price >= min && price <= max;
   };
 

@@ -26,6 +26,7 @@ const UserProfile = () => {
   const [hostels, setHostels] = useState();
   const [dateJoined, setDateJoined] = useState();
 
+  // console.log(allHostels)
   useEffect(() => {
     const date = new Date(user?.createdAt);
     setDateJoined(+date.getFullYear());
