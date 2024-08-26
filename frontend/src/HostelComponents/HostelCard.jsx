@@ -28,29 +28,35 @@ const HostelCard = ({ image, location, price, hostelid, title , agentId}) => {
 
 
   useEffect(() => {
-    const savedBookmarkString = localStorage.getItem("savedBookmark");
-    if (savedBookmarkString) {
-      const savedBookmarkArray = JSON.parse(savedBookmarkString);
-      if (savedBookmarkArray.includes(hostelDetails)) {
-        setBookmark(true);
+    // Fetch hostelDetails when it changes
+    if (hostelDetails) {
+      const savedBookmarkString = localStorage.getItem("savedBookmark");
+      if (savedBookmarkString) {
+        const savedBookmarkArray = JSON.parse(savedBookmarkString);
+        setBookmark(savedBookmarkArray.some(item => item._id === hostelDetails._id));
       }
     }
-  }, []);
+  }, [hostelDetails]);
+
 
   const handleBookmarkHostel = () => {
     const newBookmarkState = !bookmark;
     setBookmark(newBookmarkState);
-    
+
+    let updatedBookmark = [];
+    const savedBookmarkString = localStorage.getItem("savedBookmark");
+    if (savedBookmarkString) {
+      updatedBookmark = JSON.parse(savedBookmarkString);
+    }
 
     if (newBookmarkState) {
-      const updatedBookmark = [...savedBookmark, hostelDetails];
-      setSavedBookmark(updatedBookmark);
-      localStorage.setItem("savedBookmark", JSON.stringify(updatedBookmark));
+      updatedBookmark = [...updatedBookmark, hostelDetails];
     } else {
-      const updatedBookmark = savedBookmark.filter(details => details !== hostelDetails);
-      setSavedBookmark(updatedBookmark);
-      localStorage.setItem("savedBookmark", JSON.stringify(updatedBookmark));
+      updatedBookmark = updatedBookmark.filter(details => details._id !== hostelDetails._id);
     }
+
+    setSavedBookmark(updatedBookmark);
+    localStorage.setItem("savedBookmark", JSON.stringify(updatedBookmark));
   };
 
   return (
